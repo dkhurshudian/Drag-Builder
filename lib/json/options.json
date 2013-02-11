@@ -1,0 +1,15 @@
+{
+    'messagebox':{
+        'html'      :'',
+        'selector'  :''
+    },
+    'elementDragable':{
+        'html'      :'',
+        'selector'  :''
+
+    },
+    'property':{
+        'html'      :'',
+        'selector'  :''
+    }
+}

@@ -14,6 +14,7 @@ Editor = function(options){
            ,message     : new Message()
            ,properties  : new Properties()
            ,helper      : new Helper()
+    
         }
     ;
     
@@ -23,18 +24,18 @@ Editor = function(options){
      */
     var
         lib = {
-             defaultOptions         :   helper.getLib('options')
-            ,editorElementsGeneral  :   helper.getLib('editorElementsGeneral')
-            ,elementList            :   helper.getLib('elementList')
+             defaultOptions         :   classes.helper.getLib('options')
+            ,htmlStructures         :   classes.helper.getLib('htmlStructure')
+            ,elementButtonList      :   classes.helper.getLib('elementList')
         
         };
     
     
     /*
-     *extending user seted uptions and default options
+     *extending user seted options and default options
      *if user options no defined or no a object use default options
      */
-    options = (typeof options == 'object' )?(kh.extend(lib.defaultOptions,options)):(lib.defaultOptions);
+    options = (typeof options == 'object' )?(_.extend(lib.defaultOptions,options)):(lib.defaultOptions);
     
     
     /**
@@ -43,17 +44,27 @@ Editor = function(options){
      */
     var
         generalElements = {
-             messageBox         :   kh(options.messagebox)
-            ,draggElementBox    :   kh(options.elementDragable)
-            ,propertiesBox      :   kh(options.messapropertiesgebox)
+             messageBox         :   kh(options.messagebox.selector)
+            ,draggElementBox    :   kh(options.elementDragable.selector)
+            ,propertiesBox      :   kh(options.property.selector)
             ,accaardionSection  :   kh.parseHTML("<h3></h3>")[0]
     };                                                                   
     
     
     
+
     
     
-    var initialize = function(){
+    var methods = {
+        /**
+         * methods of class Editor
+         * @type {functions}
+         */
+        
+        /*
+         *init fuction can be called ounce
+         */
+        init: _.once(function(){
             
             /**
             * Create Editor HTML
@@ -64,32 +75,14 @@ Editor = function(options){
                 elementbox();
                 propertiesbox();
             }
-        }
-    
-    
-    
-    var methods = {
-        /**
-         * methods of class Editor
-         * @type {functions}
-         */
-        init:finitialize,
+        }),
         
-        setMessage:function(newsletter){
-            /**
-             * Installing already created newslatter
-             * @type {Object}
-             */
-        },
-        getMessage:function(type){
-            
-        },
         
         elements:{
             properties:{
                 
             },
-            'message':message,
+            'message':classes.message,
             
         }
     }
@@ -97,7 +90,10 @@ Editor = function(options){
     
     _.each(methods,function(fn,name){
         this[name] = fn;
-    });
+    },this);
+    return{
+        'status':'no active please call method init()'
+    }
     
 }
 

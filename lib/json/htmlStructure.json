@@ -1,0 +1,48 @@
+{
+    generalElements:{
+        tableLayout:"<table kh-data-usage = 'messagetable'>"+
+                "<tr>"+
+                    "<td kh-data-usage = 'messagecolumn'>"+
+                    "</td>"+
+                "</tr>"+
+            "</table>",
+                    
+        elementDragable:"<div kh-data-usage = 'draggableList'>"+
+        
+                        "</div>",
+                        
+        properties: "<div kh-data-usage='properties'>"+
+                        '<div kh-data-properies="head">'+
+                            
+                        "</div>"+
+                        "<div>"+
+                            '<div kh-data-usage="arrow">'+
+                                
+                            '</div>'+
+                            "<div kh-data-properies = 'content'>"+
+                                
+                            "</div>"+
+                        "</div>"+
+                    "</div>"
+    },
+    dragDropElements:{
+        after:"<div kh-data = 'messageElement' kh-data-element-type= '' >"+
+                            "<div kh-data = 'messageElementContent'>"+
+                             
+                            "</div>"+
+                            "<div kh-data-usage = 'controllers'>"+
+                                "<div kh-data-usage = 'selection'>"+
+                                    
+                                "</div>"+
+                            "</div>"+
+                        "</div>",
+        before:'<div kh-data-rel="">'+
+                    '<div kh-data-usage="accord_block_sortable">'+
+                        '<div kh-data-class="">'+
+                            '<img src="">'+
+                        '</div>'+
+                        '<span></span>'+
+                    '</div>'+						
+                '</div>'
+    }
+}

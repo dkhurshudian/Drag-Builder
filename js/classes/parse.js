@@ -2,7 +2,7 @@
      * paresing editor DOM structure                                    
      * @type {functions}                                                
      */
-Parse = function() {
+var Parse = function() {
             
             var methods = {
                         messagebox : function(){                                      
@@ -36,16 +36,16 @@ Parse = function() {
                                      * Privite method for parsing draggable element
                                      * @type {Object}
                                      */
-                                    return      '<div kh-data-rel="'+info.name+'">'+
-                                                            '<div kh-data-usage="accord_block_sortable">'+
-                                                                        '<div class="'+info.name+'">'+
-                                                                                    '<img src="'+info.before.imageUrl+'">'+
-                                                                        '</div>'+
-                                                                        '<span>'+info.before.label+'</span>'+
-                                                            '</div>'+						
-                                                '</div>'
-                                                ;
-                                                
+                                    return kh(lib.htmlStructures.dragDropElements.before).attr({
+                                                'kh-data-rel':info.name
+                                                }).find('[kh-data-usage]:first>div[kh-data-class]').attr({
+                                                            'kh-data-class':info.name
+                                                            }).
+                                                            siblings('span').text(info.before.label).
+                                                            siblings('[kh-data-class]').children("img").attr({
+                                                                        'src':info.before.inageUrl
+                                                            }).
+                                                            end()
                                     }
                                     
                                     _.each(lib.elementList,function(info,group){
@@ -69,6 +69,6 @@ Parse = function() {
             }
             _.each(methods,function(fn,name){
                         this[name] = fn;
-            }); 
+            },this); 
 }
         
