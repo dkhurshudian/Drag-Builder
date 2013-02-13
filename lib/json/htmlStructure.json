@@ -4,7 +4,7 @@
                 "<tr>"+
                     "<td kh-data-usage = 'messagecolumn'>"+
                     "</td>"+
-                "</tr>"+
+                "</tr>"+ 
             "</table>",
                     
         elementDragable:"<div kh-data-usage = 'draggableList'>"+

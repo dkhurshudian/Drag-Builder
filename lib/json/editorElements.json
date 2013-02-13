@@ -9,7 +9,7 @@
     elementDragable:"<div kh-data-usage = 'draggableList'>"+
     
                     "</div>",
-                    
+                     
     properties: "<div kh-data-usage='properties'>"+
                     '<div kh-data-properies="head">'+
                         

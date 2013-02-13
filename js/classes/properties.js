@@ -7,7 +7,7 @@ var Properties = function() {
             
         }
     }
-        
+         
     _.each(methods,function(fn,name){
         this[name] = fn;
     },this);    

@@ -6,7 +6,7 @@ Editor = function(options){
     
     
     /**
-     * defining classes
+     * defining classes 
      */       
     var
         classes = {
@@ -35,7 +35,7 @@ Editor = function(options){
      *extending user seted options and default options
      *if user options no defined or no a object use default options
      */
-    options = (typeof options == 'object' )?(_.extend(lib.defaultOptions,options)):(lib.defaultOptions);
+    options = (typeof options == 'object' )?(kh.extend(true,lib.defaultOptions,options)):(lib.defaultOptions);
     
     
     /**
@@ -88,7 +88,7 @@ Editor = function(options){
     }
     
     
-    _.each(methods,function(fn,name){
+    _.each(_.extend(methods,classes),function(fn,name){
         this[name] = fn;
     },this);
     return{

@@ -2,41 +2,79 @@
      * paresing editor DOM structure                                    
      * @type {functions}                                                
      */
-var Parse = function() {
-            
+Parse = function() {
+            /*var
+                        messageBox ={
+                                    'selector'  : options.messagebox,
+                                    'html'      : lib.editorElementsGeneral.messagebox
+                        },
+                        elementBox = {
+                                    'selector'  : options.elementDragable,
+                                    'html'      : lib.editorElementsGeneral.elementDragable
+                        },
+                        propertiesBox = {
+                                    'selector'  : options.property,
+                                    'html'      : lib.editorElementsGeneral.messapropertiesgebox
+                        },
+                        dragElementBox = {
+                                    'selector'  : draggElementBox.append,
+                                    'html'      : elementButtonList,
+                                    'accardion' : generalElements.accaardionSection,
+                                    'layout'    : lib.htmlStructures.dragDropElements.before
+                        }            
+*/
             var methods = {
-                        messagebox : function(){                                      
+                        messagebox : function(){
+                                    var messageBox ={
+                                                'selector'  : options.messagebox,
+                                                'html'      : lib.editorElementsGeneral.messagebox
+                                    };
+                                    
                             /**
                              * writing editor message block
                              * @type {replacing}
                              */
-                                    generalElements.messageBox.wrap(lib.editorElementsGeneral.messagebox);             
+                                    messageBox.selector.wrap(messageBox.html);
+                                    //generalElements.messageBox.wrap();             
                              
                         },                                                       
-                        elementbox : function(){                                      
-                                    /**
+                        elementbox : function(){
+                                    var elementBox = {
+                                                'selector'  : options.elementDragable,
+                                                'html'      : lib.editorElementsGeneral.elementDragable
+                                    } 
+                                    /** 
                                      * writing editor draggable elements parent
                                      * @type {Object}
                                      */
-                                    generalElements.draggElementBox.wrap(lib.editorElementsGeneral.elementDragable);   
+                                    elementBox.selector.wrap(elementBox.html);   
                             
                         },                                                        
-                        propertiesbox : function(){                                   
+                        propertiesbox : function(){
+                                    var propertiesBox = {
+                                                'selector'  : options.property,
+                                                'html'      : lib.editorElementsGeneral.messapropertiesgebox
+                                    };
                             /**
                              * writing editor properties
                              * @type {Object    }
                              */
-                                    generalElements.propertiesBox.wrap(lib.editorElementsGeneral.messapropertiesgebox);
+                                    propertiesBox.selector.wrap(propertiesBox.html);
                                
                         },
                         dragElementsList : function(){
-                                    
+                                    var dragElementBox = {
+                                                'selector'  : draggElementBox.append,
+                                                'html'      : elementButtonList,
+                                                'accardion' : generalElements.accaardionSection,
+                                                'layout'    : lib.htmlStructures.dragDropElements.before
+                                    };
                                     var dragableElements = function(info){
                                     /**
                                      * Privite method for parsing draggable element
                                      * @type {Object}
                                      */
-                                    return kh(lib.htmlStructures.dragDropElements.before).attr({
+                                    return kh(dragElementBox.layout).attr({
                                                 'kh-data-rel':info.name
                                                 }).find('[kh-data-usage]:first>div[kh-data-class]').attr({
                                                             'kh-data-class':info.name
@@ -48,8 +86,8 @@ var Parse = function() {
                                                             end()
                                     }
                                     
-                                    _.each(lib.elementList,function(info,group){
-                                                accaardionSection = generalElements.accaardionSection;
+                                    _.each(dragElementBox,function(info,group){
+                                                accaardionSection = dragElementBox.accardion;
                                                 
                                                 accaardionSection.innerText = group;
                                                 
@@ -59,7 +97,7 @@ var Parse = function() {
                                                             kh(accaardionSection).append(elementContent);
                                                 });
                                                 
-                                                draggElementBox.append(accaardionSection);                                    
+                                                dragElementBox.selector.append(accaardionSection);                                    
                                         
                                         
                                                 accaardionSection.innerText = '';

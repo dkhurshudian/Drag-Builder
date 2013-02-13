@@ -16,11 +16,13 @@
         <!--        editor          -->
         <script src='js/core.js'></script>
     </head>
-    <body>
-        
+    <body> 
+        <p onclick='start()'>DE</p>
         <script>
-            var newslatterEditor = new Editor;
-            newslatterEditor.init();
+            function start(){
+                newslatterEditor = new Editor;
+                newslatterEditor.init();
+            }
         </script>
     </body>
 </html>
