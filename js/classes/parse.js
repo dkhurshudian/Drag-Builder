@@ -26,8 +26,8 @@ Parse = function() {
             var methods = {
                         messagebox : function(){
                                     var messageBox ={
-                                                'selector'  : options.messagebox,
-                                                'html'      : lib.editorElementsGeneral.messagebox
+                                                'selector'  : helper.selectorEqualizing(options.messagebox),
+                                                'html'      : lib.htmlStructures.generalElements.messageBox
                                     };
                                     
                             /**
@@ -40,8 +40,8 @@ Parse = function() {
                         },                                                       
                         elementbox : function(){
                                     var elementBox = {
-                                                'selector'  : options.elementDragable,
-                                                'html'      : lib.editorElementsGeneral.elementDragable
+                                                'selector'  : helper.selectorEqualizing(options.elementDragable),
+                                                'html'      : lib.htmlStructures.generalElements
                                     } 
                                     /** 
                                      * writing editor draggable elements parent
@@ -53,7 +53,7 @@ Parse = function() {
                         propertiesbox : function(){
                                     var propertiesBox = {
                                                 'selector'  : options.property,
-                                                'html'      : lib.editorElementsGeneral.messapropertiesgebox
+                                                'html'      : lib.htmlStructures.generalElements
                                     };
                             /**
                              * writing editor properties
@@ -65,7 +65,7 @@ Parse = function() {
                         dragElementsList : function(){
                                     var dragElementBox = {
                                                 'selector'  : draggElementBox.append,
-                                                'html'      : elementButtonList,
+                                                'html'      : lib.htmlStructures.generalElements,
                                                 'accardion' : generalElements.accaardionSection,
                                                 'layout'    : lib.htmlStructures.dragDropElements.before
                                     };

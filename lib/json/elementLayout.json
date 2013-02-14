@@ -6,13 +6,13 @@
                          'imageUrl':'myimageurl.jpg',
                          'label':"My name"
                      },
-                     "after":{
-                         "content":"< my html>",
+                     'after':{
+                         'content':'< my html>',
                          "callback":function () {
                              
                          }
                      }, 
-                     "properties":{
+                     'properties':{
                          'label':'Headline',
                          'content':"<html>",
                          'callback':function(){
@@ -23,9 +23,9 @@
                          'addClass':"",
                          'callback':function(){
                              
-                         }
+                            }
                      }
-              },
+              }
               
        ]
 }

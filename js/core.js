@@ -26,7 +26,7 @@ Editor = function(options){
         lib = {
              defaultOptions         :   classes.helper.getLib('options')
             ,htmlStructures         :   classes.helper.getLib('htmlStructure')
-            ,elementButtonList      :   classes.helper.getLib('elementList')
+            ,elementButtonList      :   classes.helper.getLib('elementLayout')
         
         };
     
@@ -91,9 +91,7 @@ Editor = function(options){
     _.each(_.extend(methods,classes),function(fn,name){
         this[name] = fn;
     },this);
-    return{
-        'status':'no active please call method init()'
-    }
+    
     
 }
 

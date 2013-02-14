@@ -13,7 +13,8 @@ var Message = function(){
              * Installing already created newslatter
              * @type {Object}
              */
-        }
+        },
+        
         
     }
     

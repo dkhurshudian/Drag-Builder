@@ -1,5 +1,7 @@
 {
-    'messagebox':'',
-    'elementDragable':'',
-    'property':''
-} 
+    "messagebox":"[kh-data-usage=messagebox]",
+    
+    "elementDragable":"[kh-data-usage=elementDragable]",
+    
+    "property":"[kh-data-usage=property]"
+}

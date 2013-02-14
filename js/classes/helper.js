@@ -5,19 +5,26 @@ var Helper = function() {
              * Library information
              * @type {string}
              */
-            var 
+            var result,
             pathToLib = 'lib/json/',
             libFormat = '.json',
-            errorMessage = 'can"t load Resurse becouse: ',
+            errorMessage = "can't load Resurse becouse: ",
             libPath = pathToLib+url+libFormat;
             
-            var result = kh.ajax({
+            
+
+            kh.ajax({
                 url:libPath,
-                async:true,
-                success:console.log
-            })
-            //return kh.getJSON(libPath).error(function(msg){console.error(errorMessage+msg)});
+                dataType:'json',
+                async:false,
+                success:function(d){
+                    result = d
+                }
+                });
             return result;
+        },
+        selectorEqualizing:function(selector){
+            return selector.context?selector:kh(selector);
         }
     }
     
