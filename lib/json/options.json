@@ -3,5 +3,5 @@
     
     "elementDragable":"[kh-data-usage=elementDragable]",
     
-    "property":"[kh-data-usage=property]"
+    "propertyBox":"[kh-data-usage=property]"
 }

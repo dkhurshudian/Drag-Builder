@@ -41,7 +41,7 @@ Parse = function() {
                         elementbox : function(){
                                     var elementBox = {
                                                 'selector'  : helper.selectorEqualizing(options.elementDragable),
-                                                'html'      : lib.htmlStructures.generalElements
+                                                'html'      : lib.htmlStructures.generalElements.elementDragable
                                     } 
                                     /** 
                                      * writing editor draggable elements parent
@@ -52,8 +52,8 @@ Parse = function() {
                         },                                                        
                         propertiesbox : function(){
                                     var propertiesBox = {
-                                                'selector'  : options.property,
-                                                'html'      : lib.htmlStructures.generalElements
+                                                'selector'  : options.propertyBox,
+                                                'html'      : lib.htmlStructures.generalElements.propertyBox
                                     };
                             /**
                              * writing editor properties
@@ -63,12 +63,15 @@ Parse = function() {
                                
                         },
                         dragElementsList : function(){
+                                    
                                     var dragElementBox = {
-                                                'selector'  : draggElementBox.append,
+                                                'selector'  : helper.selectorEqualizing(options.elementDragable),
                                                 'html'      : lib.htmlStructures.generalElements,
-                                                'accardion' : generalElements.accaardionSection,
+                                                'accardion' : lib.htmlStructures.generalElements.accaardionSection,
                                                 'layout'    : lib.htmlStructures.dragDropElements.before
                                     };
+                                    
+                                    
                                     var dragableElements = function(info){
                                     /**
                                      * Privite method for parsing draggable element
