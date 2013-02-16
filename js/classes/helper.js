@@ -1,6 +1,6 @@
 var Helper = function() {
     var methods = {
-        getLib : function(url){
+        getLibJSON : function(url){
             /**
              * Library information
              * @type {string}
@@ -24,7 +24,20 @@ var Helper = function() {
             return result;
         },
         selectorEqualizing:function(selector){
+            /**
+             * converting string and DOM selector to jquery object
+             * @type {jQuery Object}
+             */
             return selector.context?selector:kh(selector);
+        },
+        getLib:function(option){
+            option = option.toUpperCase();
+            var result = window[option]
+            if(_.isUndefined(result) && !(_.isFUnction(result))){
+                console.error(result+" is undefined lib");
+                return false;
+            }
+            else return window[option]();
         }
     }
     
