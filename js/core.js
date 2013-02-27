@@ -8,27 +8,30 @@ Editor = function(options){
     /**
      * defining Clasess
      */
+    this.classes                     = new Object;
+    this.classes.helper              = new Helper(this);
+    this.classes.parser              = new Parse(this);
+    this.classes.message             = new Message(this);
+    this.classes.elementButtons      = new ElementButtons(this);
+    this.classes.properties          = new Properties(this);
+    this.classes.history             = new History(this);
+
+
     
-    //var
-    classes = {
-            helper      : new Helper(),
-            parser      : new Parse(),
-            message     : new Message(),
-            properties  : new Properties()
-    }
     
-        
-    ;
+    
+    
     
     /**
      * get resurses from Lib
      * @type {JSON}
      */
     //var
-        lib = {
-             defaultOptions         :   classes.helper.getLib('options')
-            ,htmlStructures         :   classes.helper.getLib('htmlStructure')
-            ,elementButtonList      :   classes.helper.getLib('elementLayout')
+        this.lib = {
+            defaultOptions         :   this.classes.helper.getLib('options'),
+            htmlStructures         :   this.classes.helper.getLib('htmlStructure'),
+            elementButtonList      :   this.classes.helper.getLib('elementLayout'),
+            options                :   false
         
         };
     
@@ -37,8 +40,7 @@ Editor = function(options){
      *extending user seted options and default options
      *if user options no defined or no a object use default options
      */
-    lib.options = (typeof options == 'object' )?(kh.extend(true,lib.defaultOptions,options)):(lib.defaultOptions);
-                                                              
+    this.lib.options = (typeof options == 'object' )?(kh.extend(true,this.lib.defaultOptions,options)):(this.lib.defaultOptions);
     
     
     
@@ -55,33 +57,41 @@ Editor = function(options){
         /*
          *init fuction can be called ounce
          */
-        init: function(){
-            
-            /**
-            * Create Editor HTML
-            * @type {Methods}
-            */
-            with(classes.parser){
-                messagebox();
-                elementbox();
-                propertiesbox();
+        init: _.once(function(){
+            with(this.classes){
+                
+                this.message.init();
+                this.elementButtons.init();
+                this.properties.init();
+                
+                
             }
-        },
+            
+            
+        }),
         
         
         elements:{
-            properties:{
-                
-            },
-            'message':classes.message,
+            'properties':this.classes.properties,
+            'message':this.classes.message,
+            'elementButtons':this.classes.elementButtons
             
         }
     }
     
     
-    _.each(_.extend(methods,classes),function(fn,name){
+    _.each(_.extend(methods,this.classes),function(fn,name){
         this[name] = fn;
     },this);
+    
+    /**
+     * Colling Init function 
+     * wil initilize newslatter
+     */
+    if(this.lib.options.autoInit){
+        this.init();
+        
+    }
     
     
 }

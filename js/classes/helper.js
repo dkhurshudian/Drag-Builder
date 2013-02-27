@@ -1,4 +1,6 @@
-var Helper = function() {
+var Helper = function(editor) {
+   with(editor){
+
     var methods = {
         getLibJSON : function(url){
             /**
@@ -23,6 +25,7 @@ var Helper = function() {
                 });
             return result;
         },
+        
         selectorEqualizing:function(selector){
             /**
              * converting string and DOM selector to jquery object
@@ -30,6 +33,7 @@ var Helper = function() {
              */
             return selector.context?selector:kh(selector);
         },
+        
         getLib:function(option){
             option = option.toUpperCase();
             var result = window[option]
@@ -38,12 +42,68 @@ var Helper = function() {
                 return false;
             }
             else return window[option]();
+        },
+        
+        localvarible : function (options){
+            /**
+             * function for creating varible shortcut/link,
+             * first arguent(options) is object,
+             * 
+             */
+            return _.bind(function (key,value){
+                /**
+                 * third argument equal to this object of function as secound argument
+                 * @type {Object}
+                 */
+                
+                var result = false;
+                
+                if(!value){
+                    //geter
+                    result = eval(this[key]);
+                }
+                else{
+                    //seter
+                    var varible = this[key];
+                    eval(varible+" = value");
+                    
+                }
+                return result
+            },options);
+        },
+        
+        getElementButtonObject: function(prop){
+            /**
+             * get Element butotn full object
+             */
+            var list = lib.elementButtonList,
+                result = false;
+            if(typeof prop == "string"){
+                /*
+                 *with name
+                 */
+                var name = prop;
+                
+                _(list).each(function(group, groupname){
+                    _(group).each(function(element){
+                        var name = element.name;
+                        if(this == name){
+                            result = element;
+                            return;
+                        }
+                    },name);
+                    if(!result)return;
+                });
+            }
+            
+            return result;
         }
     }
     
     
     
+   }     
     _.each(methods,function(fn,name){
         this[name] = fn;
-    },this);
+    },this);    
 }
