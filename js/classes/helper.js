@@ -4,7 +4,8 @@ var Helper = function(editor) {
     var methods = {
         getLibJSON : function(url){
             /**
-             * Library information
+             * Library information, include libs using ajax
+             * @returns library object
              * @type {string}
              */
             var result,
@@ -35,6 +36,9 @@ var Helper = function(editor) {
         },
         
         getLib:function(option){
+            /**
+             * @returns object basen on first argument,
+             */
             option = option.toUpperCase();
             var result = window[option]
             if(_.isUndefined(result) && !(_.isFUnction(result))){
