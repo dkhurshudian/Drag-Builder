@@ -14,7 +14,8 @@ var Parse = function(editor) {
             'selector'              : "lib.options.messagebox.selector",
             'html'                  : "lib.htmlStructures.generalElements.messageBox",
             'callback'              : "lib.options.messagebox.callback",
-            'tableLayout'           : "lib.htmlStructures.generalElements.tableLayout"
+            'tableLayout'           : "lib.htmlStructures.generalElements.tableLayout",
+            'tdLayout'              : "lib.htmlStructures.generalElements.tdLayout"
          
          });
          var propertiesBox       = new classes.helper.localvarible({
@@ -37,15 +38,20 @@ var Parse = function(editor) {
          });
       
       var methods = {
-         messagebox : _.once(function(){
-            
-            var parseTable = function(){
+         message:{
+            td:function(){
+               return kh(messageBox('tdLayout'));
+            },
+            table:function(){
                /**
                * parsing HTML of table in emssage box,
                * html based on resulrses from lib
                */
-               return messageBox('tableLayout');
+               return kh(messageBox('tableLayout')).find("tr").end();
             }
+         },
+         messagebox : _.once(function(){
+            
             
             /**
             * writing editor message block
@@ -54,9 +60,7 @@ var Parse = function(editor) {
             
             
             messageBox("selector",kh(messageBox('html')).replaceAll(messageBox('selector')));
-            
-            messageBox('selector').append(parseTable());
-            
+            //messageBox('selector').append(classes.parser.message.table());          
             messageBox('callback')();
          }),                                                       
          elementbox : function(){
@@ -83,7 +87,7 @@ var Parse = function(editor) {
             
             /**
             * writing editor properties
-            * @type {Object    }
+            * @type {Object}
             */
             propertiesBox("selector",kh(propertiesBox('html')).replaceAll(propertiesBox('selector')));
             

@@ -32,7 +32,22 @@ var Helper = function(editor) {
              * converting string and DOM selector to jquery object
              * @type {jQuery Object}
              */
-            return selector.context?selector:kh(selector);
+            var result = selector;
+            if(!selector.jquery){
+               /*
+                * selector is no jQuery
+                */
+               result = kh(selector);
+               if(selector.context){
+                  /*
+                   *no MessageElement
+                   */
+                  result = selector.content;
+               }
+               
+               
+            }
+            return result
         },
         
         getLib:function(option){
@@ -101,7 +116,46 @@ var Helper = function(editor) {
             }
             
             return result;
+        },
+         removeFromArray:function(array,from, to) {
+            var rest = array.slice((to || from) + 1 || array.length);
+            array.length = from < 0 ? array.length + from : from;
+            return array.push.apply(array, rest);
+         },
+         
+         getAllStyles:function (e,bool){
+            if(typeof e == "string" || e.context == undefined) e = kh(e);
+            var elementStylesArray = [],styleString;
+            var ifIE = navigator.userAgent.indexOf("MSIE")==-1;                      //for IE
+            //cssPropVal = (ifIE)?("getPropertyValue"):("getPropertyCSSValue");                    //for IE
+                kh(e).each(function(k, elemenet){
+                        var elemenet = e[k];
+                        var styleArray = window.getComputedStyle, styleString="",  defaultElemnet = (kh("<"+elemenet.tagName+">").appendTo("body")[0]);;
+                        var defaultStyles = styleArray(defaultElemnet), basedStyles = styleArray(elemenet);
+                        var style = {};
+                        kh(basedStyles).each(function(kk,ee){
+                                var styleKey = basedStyles[kk],tmpstyleKey = defaultStyles[kk],styleValue,tmpstyleValue;
+                                if(ifIE) {                                                                  //for IE               
+                                        styleValue= basedStyles.getPropertyValue(styleKey);
+                                        tmpstyleValue = defaultStyles.getPropertyValue(tmpstyleKey);
+                                }
+                                else{                                 
+                                   
+                                        styleValue= basedStyles.getPropertyCSSValue(styleKey).cssText;
+                                        tmpstyleValue = defaultStyles.getPropertyCSSValue(tmpstyleKey).cssText;
+                                }
+                                if(styleValue != tmpstyleValue){
+                                        styleString += styleKey+":"+styleValue+";";
+                                }
+                        });
+                        kh(defaultElemnet).remove();
+                        style.element = e[k].outerHTML;
+                        style.css = styleString;
+                        elementStylesArray.push(style);
+         });
+            return elementStylesArray;
         }
+         
     }
     
     

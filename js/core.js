@@ -4,7 +4,7 @@ kh = jQuery.noConflict(),
 Editor = function(options){
     
     
-    
+
     /**
      * defining Clasess
      */
@@ -60,11 +60,14 @@ Editor = function(options){
                 this.message.init();
                 this.elementButtons.init();
                 this.properties.init();
-            
             }
             
             
         }),
+        target:function(){
+            return this.classes.helper.selectorEqualizing('[kh-data-usage="messageBox"]')
+             
+        }
         
         
         
@@ -83,9 +86,8 @@ Editor = function(options){
      */
     if(this.lib.options.autoInit){
         this.init();
-        
+        this.classes.message.row.popover.show('td')
     }
     
     
 }
-

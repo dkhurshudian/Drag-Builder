@@ -3,7 +3,8 @@ var ElementButtons = function(editor) {
    var interactiveVars = new classes.helper.localvarible({
         draggableList:'lib.options.elementDragable.selector',
         soratableTd  :'lib.options.messagebox.selector.find("[kh-data-usage="+kh(lib.htmlStructures.generalElements.tableLayout).attr("kh-data-usage")+"] td[kh-data-usage=messagecolumn]")',
-        messageDefaultElement: "lib.htmlStructures.dragDropElements.after"
+        messageDefaultElement: "lib.htmlStructures.dragDropElements.after",
+        evenetCollback : 'classes.history.event'
     });
     var methods = {
         get:function(type){
@@ -41,13 +42,35 @@ var ElementButtons = function(editor) {
             if(!method){
                     result = elementButtons.sortable({
                         helper: "clone",
-                        connectWith:  interactiveVars('soratableTd')
+                        connectWith:  interactiveVars('soratableTd'),
+                        remove:function(event, ui){
+                           
+                           
+                           
+                           var element = {
+                              after		: ui.item,
+                              before		: interactiveVars("draggableList").find("[kh-data-rel="+ui.item.attr("kh-data-class")+"]")
+                           }
+                           element.type = element.before.attr("kh-data-rel");
+                           
+                           classes.elementButtons.restoreElementAfterDraging(element);
+                           
+                           var newMessage = classes.message.element.parse(element.type).content;
+                           
+                           element.after.replaceWith(newMessage);
+                           
+                           classes.helper.getElementButtonObject(element.type).after.callback();
+                           
+                           //newMessage.content.replaceAll(element.after);
+                           element.after = newMessage;
+                           interactiveVars("evenetCollback").apply(this,arguments);
+                        }
                     });
             }
             else if(method == "disable"){
                 result = elementButtons.sortable("disable");
             }
-            else if(method == "disaenableble"){
+            else if(method == "enable"){
                 result = elementButtons.sortable("enable");
             }
             return result;
@@ -58,8 +81,10 @@ var ElementButtons = function(editor) {
         enable:function(){
             return this.sortable("enable");
         },
+        target:function() {
+         return classes.helper.selectorEqualizing(lib.options.elementDragable.selector);
+        },
         init:_.once(function(){
-            
             this.elements = this.elements.concat(classes.parser.elementbox()[1]);
             
             interactiveVars('draggableList').accordion();

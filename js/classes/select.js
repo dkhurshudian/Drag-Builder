@@ -7,20 +7,20 @@ var Select = function(editor) {
     
         var selecting = function(){
             /*
-             *call once ins electing
+             *call once in selecting
              */
-            var $this = kh(this);
+            var $this = classes.message.element.find(this);
+            
             var element = {};
-            element.type    = $this.attr("kh-data-element-type");
-            element.object  = classes.helper.getElementButtonObject(element.type)
+            element.type    = $this.getType();
+            element.object  = classes.helper.getElementButtonObject(element.type);
             
-            $this.attr("kh-data-selecting","true");
-            
-            $this.addClass(element.object.selecting.addClass);
+            $this.select();
             /*
              * palce for callback
              */
             element.object.selecting.callback.call($this,arguments,element);
+            classes.properties.update();
             };
            
             
@@ -28,32 +28,66 @@ var Select = function(editor) {
             /**
              * write class methods here
              */
-            
-             
-            
             disable:function(){
+                /*
+                 * Disableing message selectable
+                 */
                 this.status = false;
-                selectVar('elements').die(this.event)
+                selectVar('elements').find('[kh-data-usage="sloyformessageElement"]').die(this.event)
             },
             enable:function(){
+                /*
+                 *enableing message selectable
+                 */
                 this.status = true;
-                selectVar('elements').live(this.event)
+                selectVar('elements').find('[kh-data-usage="sloyformessageElement"]').live(this.event)
             },
+            
             status:false,
+            
             init:_.once(function(){
+                MessageElement.prototype.select = function(){
+                    /*
+                     *add select options to message Element
+                     */
+                    this.content.attr("kh-data-selecting","true").trigger("select").addClass(this.context.classes.helper.getElementButtonObject(this.getType()));
+                }
+                MessageElement.prototype.unselect = function(){
+                    /*
+                     *add unselect options to message Element
+                     */
+                    var selected = this.content;
+                    var type = this.getType();
+                    var object = this.context.classes.helper.getElementButtonObject(type);
+                    selected.removeAttr("kh-data-selecting").trigger("unselect").removeClass(object.selecting.addClass);
+                }
                 this.enable();
             }),
-            
+            unselecting:function(element){
+                /*
+                 * unselecting selected element in message, if variable element is not defined will unselect selected element,
+                 */
+                var selected = classes.message.element.find(element?element:classes.select.selected),
+                    object   = classes.helper.getElementButtonObject(selected.getType());
+                selected.unselect();
+                classes.properties.defaultStatus();
+            },
             event:{
                 click:function(){
-                    methods.selected = this;
-                    
-                    if(!kh(this).is("[kh-data-selecting]")){
+                    var element = kh(this).parents("[kh-data = 'messageElement']:first");
+                    if(classes.select.selected && classes.select.selected !== classes.message.element.find(element)){
+                        /*
+                         * can be colld if heas selected element, and selected element not clicked element
+                         */
+                        methods.unselecting();
+                    }
+                    if(!classes.select.selected){
                         /*
                          * once 
                          */
-                        selecting.apply(this,arguments);
+                        selecting.apply(element,arguments);
                     }
+                    
                     
                 }
             }
@@ -66,22 +100,24 @@ var Select = function(editor) {
         Object.defineProperty(this,"selected",
             {
                 get:function(){
-                    return selectVar('elements').filter("[kh-data-selecting=true]");
+                    var selected = selectVar('elements').filter("[kh-data-selecting=true]");
+                    return classes.message.element.find(selected);
                 },
                 set:function(selected){
                     var element = false;
-                    if(!selectVar('elements').find(selected).size()){
+                    if((!selectVar('elements').find(selected).size())){
                         element  = classes.helper.selectorEqualizing(selected);
                         element.trigger("click");
                     }
-                    console.assert(element,"Unable to selct element, argument is incorrect");
-                    return element;
+                    
+                    console.assert(typeof selected != "boolean" && element,"Unable to selct element, argument is incorrect");
+                    return (typeof selected == "boolean")?false:element;
                 }
             });
         
         
     }
     _.each(methods,function(fn,name){
-           this[name] = fn;
-           },this);    
+       this[name] = fn;
+    },this);    
 }
